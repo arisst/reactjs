@@ -9,4 +9,4 @@
 - `browserify -t [ babelify ] main.js -o bundle.js`
 - `watchify -t [ babelify ] main.js -o bundle.js`
 - `npm install -g browser-sync`
-- `browser-sync start --files "bundle.js"`
+- `browser-sync start --files .`
