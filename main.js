@@ -15,7 +15,11 @@ var TodoList = React.createClass({
     },
 
     componentDidMount: function() {
-
+      fetch('todos.json').then(function(response) {
+        return response.json();
+      }).then(function(j) {
+        this.setState({todos: j});
+      }.bind(this));
     },
 
     render: function(){
