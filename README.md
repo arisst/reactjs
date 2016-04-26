@@ -10,3 +10,5 @@
 - `watchify -t [ babelify ] main.js -o bundle.js`
 - `npm install -g browser-sync`
 - `browser-sync start --files .`
+
+- `npm install --save react-router`
