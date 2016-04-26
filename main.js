@@ -1,39 +1,72 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var AddTodo = React.createClass({
+  getInitialState: function() {
+    return {text: ''};
+  },
 
-var TodoList = React.createClass({
+  onChange: function(e) {
+    this.setState({text: e.target.value});
+  },
 
-    getInitialState: function() {
-      return {
-        todos: [
-          {"name":"cukur"},
-          {"name":"sarapan"},
-          {"name":"nulis"}
-        ]
-      };
-    },
+  onBtnClick: function(e) {
+    this.props.addTodoStr(this.state.text);
+    this.setState({text: ''});
+    e.preventDefault();
+  },
 
-    componentDidMount: function() {
-      fetch('todos.json').then(function(response) {
-        return response.json();
-      }).then(function(j) {
-        this.setState({todos: j});
-      }.bind(this));
-    },
+  componentDidMount: function(){
 
-    render: function(){
-      var todoNodes = this.state.todos.map(function(task, i) {
-        return (<li key={i}>{task.name}</li>);
-      });
-      return (<ul>{todoNodes}</ul>);
-    }
+  },
 
+  render: function() {
+    return (
+      <div>
+        <input onChange={this.onChange} type="text" value={this.state.text} />
+        <button onClick={this.onBtnClick} type="submit">Kirim</button>
+      </div>
+    );
+  }
 });
 
+var TodoList = React.createClass({
+  getInitialState: function() {
+    return {todos: [
+      {name:"nganu"},
+      {name:"nunga"},
+      {name:"yelaah"}
+    ]};
+  },
 
+  componentDidMount: function(){
+    fetch('todos.json').then(function(response){
+      return response.json();
+    }).then(function(j){
+      this.setState({todos: j});
+    }.bind(this));
+  },
+
+  addTodoStr: function(s) {
+    var td = this.state.todos;
+    td.push({name:s});
+    this.setState({todos: td});
+  },
+
+  render: function() {
+    var todoNodes = this.state.todos.map(function(task, i){
+      return (<li key={i}>{task.name}</li>);
+    });
+    return (
+      <div>
+        <ul>{todoNodes}</ul>
+        <AddTodo addTodoStr={this.addTodoStr} />
+      </div>
+    );
+  }
+});
 
 ReactDOM.render(
-  <TodoList/>,
+  <TodoList />,
   document.getElementById('main')
 );
