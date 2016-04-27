@@ -5,13 +5,9 @@ var Route     = require('react-router').Route;
 var Link      = require('react-router').Link;
 var browserHistory      = require('react-router').browserHistory;
 
+var Models = require('./models')();
+
 var App       = React.createClass({
-  /*getInitialState: function() {
-
-  },ponentDidMount: function()
-  {
-
-  },*/
   render: function() {
     return (
       <div>
@@ -28,72 +24,17 @@ var App       = React.createClass({
   }
 });
 
-var LoginPage = React.createClass({
-  /*getInitialState: function() {
-
-  },ponentDidMount: function()
-  {
-
-  },*/
-  render: function() {
-    return (
-      <h2>Login Page</h2>
-    );
-  }
-});
-
-var DashboardPage = React.createClass({
-  /*getInitialState: function() {
-
-  },ponentDidMount: function()
-  {
-
-  },*/
-  render: function() {
-    return (
-      <h2>Dashboard Page</h2>
-    );
-  }
-});
-
-var ProfilePage = React.createClass({
-  /*getInitialState: function() {
-
-  },ponentDidMount: function()
-  {
-
-  },*/
-  render: function() {
-    return (
-      <h2>Profile Page : {this.props.params.userId}</h2>
-    );
-  }
-});
-
-var NotFoundPage = React.createClass({
-  /*getInitialState: function() {
-
-  },ponentDidMount: function()
-  {
-
-  },*/
-  render: function() {
-    return (
-      <h2>404</h2>
-    );
-  }
-});
 
 ReactDOM.render(
   (
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <Route path="login" component={LoginPage} />
-        <Route path="home" component={DashboardPage} />
-        <Route path="users" component={ProfilePage}>
-          <Route path=":userId" component={ProfilePage} />
+        <Route path="login" component={Models.LoginPage} />
+        <Route path="home" component={Models.DashboardPage} />
+        <Route path="users" component={Models.ProfilePage}>
+          <Route path=":userId" component={Models.ProfilePage} />
         </Route>
-        <Route path="*" component={NotFoundPage} />
+        <Route path="*" component={Models.NotFoundPage} />
       </Route>
     </Router>
   ),
